@@ -314,6 +314,9 @@ if __name__ == '__main__':
                                     default=False)
         argument_group.add_argument('--diamond-prefilter-db', '--diamond_prefilter_db',
                                     help='Use this DB when running DIAMOND prefilter [default: not set, generate one from the SingleM packages]')
+        argument_group.add_argument('--include-off-target-hits', '--include_off_target_hits', action='store_true',
+                                    help='Include hits that are not in the target domains of the SingleM packages [default: not set, required for v2 and older SingleM packages]',
+                                    default=False)
     less_common_pipe_arguments = pipe_parser.add_argument_group('Less common options')
     add_less_common_pipe_arguments(less_common_pipe_arguments)
 
@@ -561,7 +564,8 @@ if __name__ == '__main__':
             diamond_prefilter = args.diamond_prefilter or args.diamond_package_assignment,
             diamond_prefilter_performance_parameters = args.diamond_prefilter_performance_parameters,
             diamond_package_assignment = args.diamond_package_assignment,
-            diamond_prefilter_db = args.diamond_prefilter_db)
+            diamond_prefilter_db = args.diamond_prefilter_db,
+            include_off_target_hits = args.include_off_target_hits)
 
     else:
         # Only import some things as reuqired here, so that pipe can run in a smaller conda environment, and startup faster.
@@ -620,7 +624,8 @@ if __name__ == '__main__':
                 diamond_prefilter = False,
                 diamond_package_assignment = False,
                 diamond_prefilter_performance_parameters = args.diamond_prefilter_performance_parameters,
-                diamond_prefilter_db = args.diamond_prefilter_db)
+                diamond_prefilter_db = args.diamond_prefilter_db,
+                include_off_target_hits = args.include_off_target_hits)
 
         elif args.subparser_name=='makedb':
             if not args.otu_tables and not args.archive_otu_tables:

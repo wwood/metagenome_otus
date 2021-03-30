@@ -12,7 +12,9 @@ from Bio import SeqIO
 from io import StringIO
 
 from .singlem import HmmDatabase, TaxonomyFile, OrfMUtils, FastaNameToSampleName
+from .singlem_package import SingleMPackage
 from .otu_table import OtuTable
+from .otu_table_collection import OtuTableCollection
 from .known_otu_table import KnownOtuTable
 from .metagenome_otu_finder import MetagenomeOtuFinder
 from .sequence_classes import SeqReader, AlignedProteinSequence
@@ -98,6 +100,7 @@ class SearchPipe:
         diamond_prefilter_performance_parameters = kwargs.pop('diamond_prefilter_performance_parameters')
         diamond_package_assignment = kwargs.pop('diamond_package_assignment')
         diamond_prefilter_db = kwargs.pop('diamond_prefilter_db')
+        include_off_target_hits = kwargs.pop('include_off_target_hits')
 
         working_directory = kwargs.pop('working_directory')
         working_directory_tmpdir = kwargs.pop('working_directory_tmpdir')
@@ -304,9 +307,13 @@ class SearchPipe:
                 # outputs
                 otu_table_object,
                 package_to_taxonomy_bihash)
-
         if len(transcript_tempfile_name_to_desired_name) > 0:
             otu_table_object.rename_samples(transcript_tempfile_name_to_desired_name)
+        if not include_off_target_hits:
+            collection = OtuTableCollection()
+            collection.otu_table_objects.append(otu_table_object)
+            packages = [SingleMPackage.acquire(path) for path in singlem_packages]
+            otu_table_object = collection.exclude_off_target_hits(packages)
         return_cleanly()
         return otu_table_object
 

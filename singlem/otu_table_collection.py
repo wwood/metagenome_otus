@@ -150,7 +150,7 @@ class OtuTableCollection:
             if otu.marker not in package_to_targets:
                 raise Exception("No SingleM package named '{}' was provided".format(otu.marker))
             if not otu.taxonomy.startswith('Root'):
-                raise Exception("Unexpected taxonomy string encountered: {}".format(tax))
+                raise Exception("Unexpected taxonomy string encountered: {}".format(otu.taxonomy))
             tax = otu.taxonomy.split('; ')
             targets = package_to_targets[otu.marker]
             if tax == ['Root']:

@@ -1,0 +1,1 @@
+{"unaligned_sequence_database": "singlem_package_creatorB2tZGH.fasta", "align_hmm": "DNGNGWU00030_mingle_output_good_seqs.hmm", "range": 298.5, "refpkg": "4.11.22seqs.gpkg.refpkg", "trusted_cutoff": false, "diamond_database": "singlem_package_creatorxA2ucs.dmnd", "graftm_package_version": 3, "search_hmms": ["graftmYvtMa9_search.hmm", "graftmJ13IRm_search.hmm"]}

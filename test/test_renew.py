@@ -41,7 +41,7 @@ class Tests(unittest.TestCase):
         os.path.join(path_to_data, '4.12.22seqs.spkg'))
 
     def test_hello_word_cmdline(self):
-        cmd = "{} renew --input_archive_otu_table {}/small.otu_table.json --singlem_package {}/4.12.22seqs.spkg --sequences {}/1_pipe/small.fa --assignment_method diamond --otu_table /dev/stdout".format(
+        cmd = "{} renew --include_off_target_hits --input_archive_otu_table {}/small.otu_table.json --singlem_package {}/4.12.22seqs.spkg --sequences {}/1_pipe/small.fa --assignment_method diamond --otu_table /dev/stdout".format(
             path_to_script,
             path_to_data,
             path_to_data,
